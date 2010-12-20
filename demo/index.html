@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <title></title>
+</head>
+<body>
+  <script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../dist/LocalStorage.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    document.observe("dom:loaded", function(){
+      var images = {
+        img1: "http://image1",
+        img2: "http://image2",
+        img3: "http://image3",
+        img4: "http://image4",
+        img5: "http://image5",
+        img6: "http://image6",
+        img7: "http://image7",
+        img8: "http://image8",
+        img9: "http://image9",
+        img10: "http://image10",
+      }
+
+      if(LocalStorage.isAvailable){
+        var d = new Date();
+        LocalStorage.set('timestamp', d.toString());
+        LocalStorage.set('images', images);
+
+        console.log(LocalStorage.get('timestamp'));
+        console.log(LocalStorage.get('images'));
+      }
+    });
+  </script>
+</body>
+</html>
