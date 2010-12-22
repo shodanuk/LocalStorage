@@ -2,34 +2,71 @@
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
-  <title></title>
+  <title>LocalStorage tests (PrototypeJS version)</title>
+  <style type="text/css" media="screen">
+    ul, li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      background: #CEFFD3;
+      border: 1px solid #66FF75;
+      line-height: 1.4;
+      margin-bottom: 5px;
+      padding: 8px;
+    }
+    li.fail {
+      background: #FCCCCC;
+      border: 1px solid #F93B3B;
+    }
+  </style>
 </head>
 <body>
-  <script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../dist/LocalStorage.js" type="text/javascript" charset="utf-8"></script>
+  <h1>LocalStorage tests (PrototypeJS version)</h1>
+  <ul id="log"></ul>
+
+  <script src="../lib/prototype.js" charset="utf-8"></script>
+  <script src="../dist/LocalStorage.js" charset="utf-8"></script>
   <script type="text/javascript" charset="utf-8">
     document.observe("dom:loaded", function(){
-      var images = {
-        img1: "http://image1",
-        img2: "http://image2",
-        img3: "http://image3",
-        img4: "http://image4",
-        img5: "http://image5",
-        img6: "http://image6",
-        img7: "http://image7",
-        img8: "http://image8",
-        img9: "http://image9",
-        img10: "http://image10",
-      }
+      var log = $('log');
+      log.insert('<li>Starting tests...</li>');
+      log.insert('<li>Testing for localStorage availability</li>');
 
       if(LocalStorage.isAvailable){
-        var d = new Date();
-        LocalStorage.set('timestamp', d.toString());
-        LocalStorage.set('images', images);
+        log.insert('<li>localStorage is avalable, now setting event listeners...</li>');
 
-        console.log(LocalStorage.get('timestamp'));
-        console.log(LocalStorage.get('images'));
+        var events = ['LocalStorage:setItem', 'LocalStorage:getItem', 'LocalStorage:clear', 'LocalStorage:removeItem'];
+        events.each(function(eventType){
+          Event.observe(window, eventType, function(e){
+            log.insert('<li>'+e.eventName+' event fired! '+Object.toJSON(e.memo)+'</li>');
+          });
+        });
+
+        var d = new Date(), items = {
+          item1: "I am item 1",
+          item2: "I am item 2",
+          item3: "I am item 3",
+          item4: "I am item 4",
+          item5: "I am item 5",
+          item6: "I am item 6",
+          item7: "I am item 7",
+          item8: "I am item 8",
+          item9: "I am item 9",
+          item10: "I am item 10"
+        };
+
+        LocalStorage.set('timestamp', d.toString());
+        LocalStorage.set('items', items);
+
+        log.insert("<li>timestamp = "+LocalStorage.get('timestamp')+"</li>");
+        log.insert("<li>items = "+LocalStorage.get('items')+"</li>");
+      }else{
+        log.insert('<li class="fail">localStorage not available. Bailing out...</li>');
       }
+
+      log.insert('<li>Tests finished.</li>');
     });
   </script>
 </body>

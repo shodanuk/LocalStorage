@@ -1,4 +1,4 @@
-// Prototype version
+// jQuery version
 var LocalStorage = function(){
   var isAvailable = false,
       ls = null;
@@ -21,10 +21,10 @@ var LocalStorage = function(){
     ls.clear();
   }
 
-  function fireEvent(event, key, val){
+  function fireEvent(eventType, key, val){
     var memo = {};
     if(typeof key != 'undefined' && typeof val != 'undefined') memo[key] = val;
-    Event.fire(window, "LocalStorage:"+event, memo);
+    $(window).trigger("LocalStorage:"+eventType, memo);
   }
 
   function key(idx){
@@ -32,10 +32,20 @@ var LocalStorage = function(){
   }
 
   function get(key){
-    fireEvent('getItem');
-    var item = ls.getItem(key);
-    if(item != null){
-      return item.isJSON() ? item.evalJSON() : item;
+    var item = ls.getItem(key),
+        json = false;
+
+    if(item !== null){
+      try {
+        json = $.parseJSON(item);
+      } catch (e) {
+        // not valid json
+      }
+
+      // if parseJSON returned a valid JSON object,
+      // return that. Otherwise, just return the item
+      // which hopefully is a string.
+      return json ? json : item;
     }else{
       return null;
     }
@@ -48,25 +58,16 @@ var LocalStorage = function(){
 
   function set(key, val){
     fireEvent('setItem', key, val);
-    if(typeof val == 'object'){
-      val = Object.toJSON(val);
+    if(typeof val === 'object'){
+      val = $.parseJSON(val);
     }
     ls.setItem(key, val);
   }
 
-  function setup(){
+  if(checkAvailable()){
     isAvailable = true;
     ls = window.localStorage;
-
-
   }
-
-  // if localStorage is available, off we go!
-  document.observe("dom:loaded", function(){
-    if(checkAvailable()){
-      setup();
-    }
-  });
 
   return {
     clearAll: clearAll,
