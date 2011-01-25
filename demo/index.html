@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="en-GB">
+<!--[if lte IE 6]><html lang="en-GB" xmlns:sdk=""><![endif]-->
+<!--[if gte IE 7]><html lang="en-GB"><![endif]-->
+<!--[if !IE]><html lang="en-GB"><![endif]-->
 <head>
   <meta charset="UTF-8" />
   <title>LocalStorage tests (PrototypeJS version)</title>
@@ -20,54 +22,38 @@
       background: #FCCCCC;
       border: 1px solid #F93B3B;
     }
+
+    #warning {
+      background-color: #F9CFCF;
+      border: 1px solid red;
+      color: red;
+      font-size: 1.4em;
+      font-weight: bold;
+      right: 0;
+      padding: 20px;
+      position: absolute;
+      text-align:center;
+      top: 0;
+    }
   </style>
+
+  <!--[if lte IE 6]>
+  <style type="text/css">
+  sdk\:cacher {
+    behavior:url(#default#userData);
+  }
+  </style>
+  <![endif]-->
 </head>
 <body>
   <h1>LocalStorage tests (PrototypeJS version)</h1>
-  <ul id="log"></ul>
+  <div id="log">No LocalStorage for you. Boo hoo :(</div>
 
-  <script src="../lib/prototype.js" charset="utf-8"></script>
-  <script src="../dist/LocalStorage.js" charset="utf-8"></script>
-  <script type="text/javascript" charset="utf-8">
-    document.observe("dom:loaded", function(){
-      var log = $('log');
-      log.insert('<li>Starting tests...</li>');
-      log.insert('<li>Testing for localStorage availability</li>');
-
-      if(LocalStorage.isAvailable){
-        log.insert('<li>localStorage is avalable, now setting event listeners...</li>');
-
-        var events = ['LocalStorage:setItem', 'LocalStorage:getItem', 'LocalStorage:clear', 'LocalStorage:removeItem'];
-        events.each(function(eventType){
-          Event.observe(window, eventType, function(e){
-            log.insert('<li>'+e.eventName+' event fired! '+Object.toJSON(e.memo)+'</li>');
-          });
-        });
-
-        var d = new Date(), items = {
-          item1: "I am item 1",
-          item2: "I am item 2",
-          item3: "I am item 3",
-          item4: "I am item 4",
-          item5: "I am item 5",
-          item6: "I am item 6",
-          item7: "I am item 7",
-          item8: "I am item 8",
-          item9: "I am item 9",
-          item10: "I am item 10"
-        };
-
-        LocalStorage.set('timestamp', d.toString());
-        LocalStorage.set('items', items);
-
-        log.insert("<li>timestamp = "+LocalStorage.get('timestamp')+"</li>");
-        log.insert("<li>items = "+LocalStorage.get('items')+"</li>");
-      }else{
-        log.insert('<li class="fail">localStorage not available. Bailing out...</li>');
-      }
-
-      log.insert('<li>Tests finished.</li>');
-    });
-  </script>
+  <!--[if lte IE 6]>
+  <sdk:cacher id="cachetag"></sdk:cacher>
+  <![endif]-->
+  <script type="text/javascript" src="../lib/prototype.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../dist/LocalStorage.js" charset="utf-8"></script>
+  <script type="text/javascript" src="test.js" charset="utf-8"></script>
 </body>
 </html>
