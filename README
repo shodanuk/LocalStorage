@@ -1,0 +1,5 @@
+This is a PrototypeJS powered abstraction of the localStorage API which provides backwards compatibility with IE6 & 7.
+
+I've also started a jQuery port (included) but it's currently incomplete.
+
+Testing has so far been VERY limited so use at your own risk!
