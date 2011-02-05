@@ -19,21 +19,20 @@
   <div id="wrapper">
 
     <h1>LocalStorage tests (PrototypeJS version)</h1>
-    <div id="log">No LocalStorage for you. Boo hoo :(</div>
+
+    <div id="log"></div>
 
     <form id="test-form">
-      <p>Please enter a test key and value below.</p>
+      <h2>Retrieve your test data</h2>
+
+      <p>Please enter your test key.</p>
 
       <div class="input text">
         <label for="ls-key">Key Name</label>
         <input type="input" name="ls-key" value="" id="ls-key"/>
       </div>
-      <div class="input text">
-        <label for="ls-value">Value</label>
-        <input type="text" name="ls-value" value="" id="ls-value" />
-      </div>
       <div class="submit">
-        <input type="submit" value="Save">
+        <input type="submit" value="Got my data">
       </div>
     </form>
 
@@ -45,6 +44,6 @@
   <![endif]-->
   <script type="text/javascript" src="../lib/prototype.js" charset="utf-8"></script>
   <script type="text/javascript" src="../dist/LocalStorage.js" charset="utf-8"></script>
-  <script type="text/javascript" src="test.js" charset="utf-8"></script>
+  <script type="text/javascript" src="retrieve.js" charset="utf-8"></script>
 </body>
 </html>

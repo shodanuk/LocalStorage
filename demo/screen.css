@@ -1,0 +1,74 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 62.5%;
+}
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  line-height: 1.4;
+  margin-bottom: 5px;
+  padding: 8px;
+}
+
+#wrapper {
+  font-size: 1.2em;
+  margin: 0 auto;
+  padding: 10px;
+  overflow: hidden;
+  width: 960px;
+}
+
+#log {
+  float: right;
+  width: 460px;
+}
+
+#warning {
+  right: 0;
+  position: absolute;
+  top: 0;
+}
+
+label {
+  display: block;
+}
+
+form {
+  border: 1px solid #ccc;
+  display: block;
+  float: left;
+  padding: 10px;
+  width: 460px;
+}
+
+.msg {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.error {
+  background-color: #F9CFCF;
+  border: 1px solid red;
+  color: red;
+}
+
+.good {
+  background-color: #CEFFD3;
+  border: 1px solid green;
+  color: green;
+}
