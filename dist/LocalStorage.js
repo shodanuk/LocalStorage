@@ -17,6 +17,20 @@ var LocalStorage = function() {
     fireEvent('clear');
   }
 
+  function dump() {
+    var dumpObj = {};
+
+    for (item in _ls) {
+      if (_ls.hasOwnProperty(item)) {
+        if(item != 'timestamp') {
+          dumpObj[item] = _ls[item];
+        }
+      }
+    }
+
+    return dumpObj;
+  }
+
   function fireEvent(event, key, val) {
     var memo = {};
     if(typeof key != 'undefined' && typeof val != 'undefined') memo[key] = val;
@@ -43,6 +57,7 @@ var LocalStorage = function() {
     };
 
     if (item != null) {
+
       return item.isJSON() ? item.evalJSON() : item;
     } else {
       return null;
@@ -60,6 +75,10 @@ var LocalStorage = function() {
     };
 
     fireEvent('removeItem', key, val);
+  }
+
+  function serialize() {
+    return Object.toJSON(dump());
   }
 
   function set(key, val) {
@@ -94,10 +113,12 @@ var LocalStorage = function() {
 
   return {
     clearAll: clearAll,
+    dump: dump,
     get: get,
     key: key,
     isAvailable: isAvailable,
     remove: remove,
+    serialize: serialize,
     set: set
   };
 }();
